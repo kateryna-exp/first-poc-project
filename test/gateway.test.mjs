@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import test from 'node:test';
 import { createGateway } from '../src/gateway.mjs';
 
@@ -106,6 +109,66 @@ test('serves upstream tarball URLs directly and retains gateway tarball support'
   const download = events.find((event) => event.action === 'tarball_download');
   assert.equal(download.version, '1.0.0');
   assert.equal(download.integrityVerified, true);
+});
+
+test('overrides only the registered version and keeps other upstream versions', async (t) => {
+  const customBytes = Buffer.from('custom preloader 1.0.0');
+  const root = await mkdtemp(path.join(tmpdir(), 'gateway-custom-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(path.join(root, 'packages'));
+  await writeFile(path.join(root, 'packages', 'preloader-1.0.0.tgz'), customBytes);
+
+  let upstreamBase;
+  const upstream = createServer((request, response) => {
+    assert.equal(request.url, '/preloader');
+    response.setHeader('content-type', 'application/json');
+    response.end(JSON.stringify({
+      name: 'preloader',
+      'dist-tags': { latest: '2.0.0' },
+      versions: {
+        '1.0.0': { version: '1.0.0', dist: { tarball: `${upstreamBase}/preloader/-/preloader-1.0.0.tgz` } },
+        '2.0.0': { version: '2.0.0', dist: { tarball: `${upstreamBase}/preloader/-/preloader-2.0.0.tgz` } },
+      },
+    }));
+  });
+  upstreamBase = await listen(upstream);
+  t.after(() => close(upstream));
+
+  const gateway = createGateway({
+    config: config(upstreamBase, 'test-token', {
+      projectRoot: root,
+      custom: { packages: {
+        preloader: {
+          replaceUpstream: false,
+          distTags: { company: '1.0.0' },
+          versions: {
+            '1.0.0': {
+              file: 'packages/preloader-1.0.0.tgz',
+              manifest: { name: 'preloader', version: '1.0.0' },
+              integrity: `sha512-${createHash('sha512').update(customBytes).digest('base64')}`,
+              shasum: createHash('sha1').update(customBytes).digest('hex'),
+            },
+          },
+        },
+      } },
+    }),
+    auditEmitter: async () => {},
+  });
+  const gatewayServer = createServer((request, response) => gateway(request, response));
+  const gatewayBase = await listen(gatewayServer);
+  t.after(() => close(gatewayServer));
+
+  const headers = { authorization: 'Bearer test-token' };
+  const response = await fetch(`${gatewayBase}/preloader`, { headers });
+  assert.equal(response.status, 200);
+  const metadata = await response.json();
+  assert.deepEqual(Object.keys(metadata.versions).sort(), ['1.0.0', '2.0.0']);
+  assert.equal(metadata['dist-tags'].latest, '2.0.0');
+  assert.equal(metadata.versions['2.0.0'].dist.tarball, `${upstreamBase}/preloader/-/preloader-2.0.0.tgz`);
+  assert.match(metadata.versions['1.0.0'].dist.tarball, new RegExp(`^${gatewayBase}/-/tarballs/`));
+  const tarball = await fetch(metadata.versions['1.0.0'].dist.tarball, { headers });
+  assert.equal(tarball.status, 200);
+  assert.deepEqual(Buffer.from(await tarball.arrayBuffer()), customBytes);
 });
 
 test('forwards npm security audit requests and records the result', async (t) => {

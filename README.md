@@ -127,11 +127,12 @@ npm install
 Do not commit a plaintext token. Each person should have a separate principal
 so the `principal` field in audit events is meaningful.
 
-With `audit=true` and `fund=true`, a plain `npm install` prints npm's normal
-package, funding, and vulnerability summary after a successful install. The
-counts depend on the installed dependency tree. An environment setting such as
-`NPM_CONFIG_AUDIT=false` overrides the project `.npmrc` and suppresses the
-audit summary; check with `npm config get audit` if the summary is missing.
+With `audit=true` and `fund=true`, a plain `npm install` prints npm's package
+changes, audited package count, funding message when applicable, and
+vulnerability summary. The numbers depend on the project's installed dependency
+tree. An environment setting such as `NPM_CONFIG_AUDIT=false` overrides the
+project `.npmrc` and suppresses the audit summary; check with
+`npm config get audit` if that summary is missing.
 
 ## Register a modified package
 
@@ -161,6 +162,19 @@ The command copies the tarball to `packages/` and updates
 `--replace-upstream` when the gateway must expose only your custom versions, and
 `--set-latest` only when you intentionally want the custom version behind the
 `latest` tag.
+
+To replace only one exact upstream version while leaving all other versions
+available, pack a tarball whose `package.json` has that exact name and version,
+then register it without `--replace-upstream` or `--set-latest`:
+
+```bash
+node scripts/register-custom-package.mjs packages/preloader-1.0.0.tgz --tag company
+```
+
+Use `--replace` only when that exact custom version is already registered.
+If an earlier registration used `--replace-upstream` or `--set-latest`, set
+`replaceUpstream` to `false` and remove the custom `distTags.latest` entry for
+this package in `config/custom-packages.json` before redeploying.
 
 For a patched transitive dependency, pin the company version in the consuming
 project:

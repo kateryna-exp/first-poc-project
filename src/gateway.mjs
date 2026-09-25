@@ -466,11 +466,7 @@ async function serveMetadata(config, fetchImpl, audit, request, response, princi
   if (!packageDecision.allowed) throw new GatewayError(403, packageDecision.reason);
 
   
-  const registeredPackage = getCustomPackage(config, packageName);
-  
-  const customPackage = registeredPackage
-      ? { ...registeredPackage, replaceUpstream: true }
-      : { ...registeredPackage, replaceUpstream: false };
+  const customPackage = getCustomPackage(config, packageName);
 
   const upstream = customPackage?.replaceUpstream
       ? null

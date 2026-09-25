@@ -2,7 +2,7 @@ registry=https://register.com/
 //register.com/:_authToken=${NPM_GATEWAY_TOKEN}
 replace-registry-host=never
 
-# Keep normal npm integrity checks enabled.
+# Keep normal npm integrity checks enabled and display install-time results.
 audit=true
 fund=true
 package-lock=true
