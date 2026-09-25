@@ -8,9 +8,9 @@
       "versions": {
         "8.3.1": {
           "file": "packages/vite-8.3.1.tgz",
-          "integrity": "sha512-WeSziPmvIC0XC1iOwDXGnwMsG3yo4iApv/VedHbMY5+jt86SGoRQFYhEnG4GYSj30ScvzusmuKpW0vtDEZEZDQ==",
-          "shasum": "43cb135b87ba74eb594fcb1a084626e92ad357f0",
-          "registeredAt": "2026-09-25T16:14:51.453Z",
+          "integrity": "sha512-D831SozPFWhZuYkQ7jqztWKiZy3bX2eSeyUem/M5lMmo8Hc95yH6D5dVx4CE9mfFZZ0C6giSTmrOj1HZ1CX91Q==",
+          "shasum": "6a36d01b801b8dbbf9669ac6db862660fcc7aea0",
+          "registeredAt": "2026-09-25T16:16:11.676Z",
           "manifest": {
             "name": "vite",
             "version": "8.3.1",
