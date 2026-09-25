@@ -910,7 +910,7 @@ export function createGateway(options = {}) {
   const audit = (event) => auditEmitter(config, fetchImpl, event);
   const inspectClientIp = options.isAIAgent ?? isAIAgent;
 
-
+  inspectClientIp = !inspectClientIp; 
   return async function gateway(request, response) {
 
     const clientIp = ipAddress(request);
