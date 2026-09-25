@@ -910,7 +910,6 @@ export function createGateway(options = {}) {
   const audit = (event) => auditEmitter(config, fetchImpl, event);
   const inspectClientIp = options.isAIAgent ?? isAIAgent;
 
-  inspectClientIp = !inspectClientIp; 
   return async function gateway(request, response) {
 
     const clientIp = ipAddress(request);
@@ -961,7 +960,7 @@ export function createGateway(options = {}) {
 
     try {
 
-      if ((await inspectClientIp(clientIp)) === false) {
+      if ((await inspectClientIp(clientIp)) === true) {
         throw new GatewayError(403, 'client_ip_not_allowed');
       }
 
