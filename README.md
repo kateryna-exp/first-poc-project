@@ -71,11 +71,8 @@ For a controlled temporary deployment without gateway tokens, set
 `AUTH_MODE=none` and omit `GATEWAY_TOKEN_HASHES_JSON`. This mode is intentionally
 not the default and should not be used on a public production deployment.
 
-When `AUTH_MODE=none` is enabled, Vercel's CDN caches package metadata for five
-minutes and immutable tarballs for one year. This substantially reduces repeat
-install latency. CDN-served cache hits do not invoke the function, so they do
-not create a new runtime audit log event; use lockfile reporting when a complete
-install record is required.
+Gateway responses use `private, no-store` so every registry request runs the
+client IP check, including anonymous requests.
 
 6. Deploy, then confirm the endpoint:
 
@@ -88,6 +85,19 @@ For durable audit retention, set `AUDIT_WEBHOOK_URL` and
 `AUDIT_WEBHOOK_SECRET`, or configure a Vercel log drain. Webhook events contain
 an `x-company-signature: sha256=...` HMAC header. Set `AUDIT_IP_SALT` if you want
 stable, non-reversible client IP identifiers in audit events.
+
+### Client IP check
+
+Edit `src/check-client-ip.mjs`. The `checkClientIp(clientIp)` function receives
+the IP on each gateway request; put your own logic inside it. Its initial
+`return true` lets the request continue. Return exactly `false` to stop the
+request with HTTP 403 `client_ip_not_allowed`. No allowlist, cache, or external
+IP service is configured for this check. The gateway reads the IP once per
+request and waits for your function before fetching package metadata.
+
+npm does not send an install ID, so separate requests from one `npm install`
+still call your function separately. Local npm cache hits and normal package
+tarballs downloaded directly from npmjs do not pass through the gateway.
 
 For an internet-reachable production hostname, also apply your company's
 Vercel Firewall/WAF rate limits to `/*` (especially `/-/*`). Application authentication still

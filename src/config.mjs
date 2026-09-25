@@ -94,6 +94,7 @@ export function loadConfig(env = process.env) {
     .map((entry) => entry.trim().toLowerCase())
     .filter(Boolean);
 
+
   return {
     projectRoot,
     policy,

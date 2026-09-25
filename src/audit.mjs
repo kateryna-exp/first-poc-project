@@ -5,14 +5,13 @@ function truncate(value, maximum) {
   return value.slice(0, maximum);
 }
 
-function ipAddress(request) {
-  const forwarded = request.headers['x-forwarded-for'];
+export function ipAddress(request) {
+  const forwarded = request.headers['x-vercel-forwarded-for'] ?? request.headers['x-forwarded-for'];
   if (typeof forwarded === 'string') return forwarded.split(',')[0].trim();
   return request.socket?.remoteAddress ?? '';
 }
 
-export function requestContext(request, config) {
-  const rawIp = ipAddress(request);
+export function requestContext(request, config, rawIp = ipAddress(request)) {
   const context = {
     requestId: truncate(request.headers['x-vercel-id'], 200) ?? randomUUID(),
   };

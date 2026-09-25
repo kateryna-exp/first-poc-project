@@ -44,6 +44,44 @@ function config(upstreamBase, token, overrides = {}) {
   };
 }
 
+test('calls the customizable IP hook before fetching metadata and blocks on false', async (t) => {
+  let upstreamCalls = 0;
+  const upstream = createServer((_request, response) => {
+    upstreamCalls += 1;
+    response.setHeader('content-type', 'application/json');
+    response.end(JSON.stringify({ name: 'demo-package', versions: {
+      '1.0.0': { name: 'demo-package', version: '1.0.0' },
+    } }));
+  });
+  const upstreamBase = await listen(upstream);
+  t.after(() => close(upstream));
+
+  const checkedIps = [];
+  const gateway = createGateway({
+    config: config(upstreamBase, 'test-token'),
+    checkClientIp: async (clientIp) => {
+      checkedIps.push(clientIp);
+      return clientIp !== '198.51.100.10';
+    },
+    auditEmitter: async () => {},
+  });
+  const server = createServer(gateway);
+  const base = await listen(server);
+  t.after(() => close(server));
+
+  const request = (ip) => fetch(`${base}/demo-package`, {
+    headers: { authorization: 'Bearer test-token', 'x-forwarded-for': ip },
+  });
+  const allowed = await request('198.51.100.9');
+  assert.equal(allowed.status, 200);
+  assert.equal(allowed.headers.get('cdn-cache-control'), 'private, no-store');
+  const blocked = await request('198.51.100.10');
+  assert.equal(blocked.status, 403);
+  assert.equal((await blocked.json()).error, 'client_ip_not_allowed');
+  assert.deepEqual(checkedIps, ['198.51.100.9', '198.51.100.10']);
+  assert.equal(upstreamCalls, 1);
+});
+
 test('serves upstream tarball URLs directly and retains gateway tarball support', async (t) => {
   const tarball = Buffer.from('mock npm tarball bytes');
   const integrity = `sha512-${createHash('sha512').update(tarball).digest('base64')}`;

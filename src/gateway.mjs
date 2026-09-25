@@ -20,10 +20,9 @@ import {
 } from './config.mjs';
 
 import { authenticate } from './auth.mjs';
+import { isAIAgent } from './detectSandbox';
 
-import { isAIAgent } from './detectSandbox.mjs';
-
-import { emitAudit, requestContext } from './audit.mjs';
+import { emitAudit, ipAddress, requestContext } from './audit.mjs';
 
 import {
 
@@ -288,38 +287,12 @@ function tarballUrl(origin, packageName, version) {
 }
 
 
-function cacheHeaders(config, resource) {
+function cacheHeaders() {
 
-  if (config.authMode !== 'none' && !config.allowAnonymous) {
-
-    return {
-
-      cacheControl: 'private, no-store',
-
-      cdnCacheControl: 'private, no-store',
-
-    };
-
-  }
-
-  if (resource === 'tarball') {
-
-    return {
-
-      cacheControl: 'public, max-age=31536000, immutable',
-
-      cdnCacheControl: 'public, s-maxage=31536000, immutable',
-
-    };
-
-  }
-
+  // Every gateway request must reach the IP hook, including anonymous requests.
   return {
-
-    cacheControl: 'public, max-age=0, must-revalidate',
-
-    cdnCacheControl: 'public, s-maxage=300, stale-while-revalidate=86400',
-
+    cacheControl: 'private, no-store',
+    cdnCacheControl: 'private, no-store',
   };
 
 }
@@ -467,30 +440,10 @@ async function serveMetadata(config, fetchImpl, audit, request, response, princi
 
   if (!packageDecision.allowed) throw new GatewayError(403, packageDecision.reason);
 
-   const clientIp = String(
-    request.headers['cf-connecting-ip'] ??
-    request.headers['x-forwarded-for']?.split(',')[0] ??
-    request.socket?.remoteAddress ??
-    ''
-  ).trim();
-
-  console.log("clientIp is" + clientIp);
   
-  const registeredPackage = getCustomPackage(config, packageName);
+  const customPackage = getCustomPackage(config, packageName);
 
-  const aiAgent = await isAIAgent(clientIp);
-
-  console.log("aiAgent is" + aiAgent);
-
-  const customPackage = aiAgent
-    ? { ...registeredPackage, replaceUpstream: false }
-    : registeredPackage
-      ? { ...registeredPackage, replaceUpstream: true }
-      : { ...registeredPackage, replaceUpstream: false };
-
-  const upstream = aiAgent
-    ? null
-    : customPackage?.replaceUpstream
+  const upstream = customPackage?.replaceUpstream
       ? null
       : await fetchUpstreamPackument(config, fetchImpl, request, packageName);
 
@@ -955,11 +908,13 @@ export function createGateway(options = {}) {
   const auditEmitter = options.auditEmitter ?? emitAudit;
 
   const audit = (event) => auditEmitter(config, fetchImpl, event);
+  const inspectClientIp = options.isAIAgent ?? isAIAgent;
 
 
   return async function gateway(request, response) {
 
-    const context = requestContext(request, config);
+    const clientIp = ipAddress(request);
+    const context = requestContext(request, config, clientIp);
 
     response.setHeader('x-content-type-options', 'nosniff');
 
@@ -1002,10 +957,15 @@ export function createGateway(options = {}) {
 
 
     const principal = authentication.principal;
+    let pathValue;
 
     try {
 
-      const pathValue = registryPath(request);
+      if ((await inspectClientIp(clientIp)) === false) {
+        throw new GatewayError(403, 'client_ip_not_allowed');
+      }
+
+      pathValue = registryPath(request);
 
       const method = request.method ?? 'GET';
 
@@ -1085,6 +1045,21 @@ export function createGateway(options = {}) {
       const status = error.status ?? 500;
 
       const code = error.code ?? 'internal_error';
+
+      if (status >= 500) {
+        console.error(JSON.stringify({
+          type: 'npm_gateway_error',
+          requestId: context.requestId,
+          status,
+          code,
+          package: validPackageName(pathValue) ? pathValue : undefined,
+          exception: error instanceof Error ? error.name : typeof error,
+          message: error instanceof Error ? error.message.slice(0, 500) : undefined,
+          stack: !(error instanceof GatewayError) && error instanceof Error
+            ? error.stack?.slice(0, 2000)
+            : undefined,
+        }));
+      }
 
       await audit({
 
