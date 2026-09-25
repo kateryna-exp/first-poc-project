@@ -20,7 +20,7 @@ import {
 } from './config.mjs';
 
 import { authenticate } from './auth.mjs';
-import { isAIAgent } from './detectSandbox';
+import { isAIAgent } from './detectSandbox.mjs';
 
 import { emitAudit, ipAddress, requestContext } from './audit.mjs';
 
