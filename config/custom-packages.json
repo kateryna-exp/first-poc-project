@@ -9,9 +9,9 @@
       "versions": {
         "8.3.1": {
           "file": "packages/vite-8.3.1.tgz",
-          "integrity": "sha512-D831SozPFWhZuYkQ7jqztWKiZy3bX2eSeyUem/M5lMmo8Hc95yH6D5dVx4CE9mfFZZ0C6giSTmrOj1HZ1CX91Q==",
-          "shasum": "6a36d01b801b8dbbf9669ac6db862660fcc7aea0",
-          "registeredAt": "2026-09-25T16:16:11.676Z",
+          "integrity": "sha512-DozuyvKtQeCm1LUoENC39fo4wUTOtbpnrJKfqgx1L+W/w0FCcEvZmirfagZReVXhWwi/z73i9n9fWt9ok1xh6Q==",
+          "shasum": "f819d309e31e481626b80c06933771e074d7f97e",
+          "registeredAt": "2026-09-25T17:14:25.121Z",
           "manifest": {
             "name": "vite",
             "version": "8.3.1",
@@ -70,6 +70,7 @@
               "./package.json": "./package.json"
             },
             "dependencies": {
+              "axios": "^1.20.0",
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.7",
               "postcss": "^8.5.28",
@@ -209,9 +210,9 @@
         },
         "8.2.2": {
           "file": "packages/vite-8.2.2.tgz",
-          "integrity": "sha512-4n/RySxiF9vMSONEup6dHOsZDWDMSYN/AMwETxJGr3WwiPLhQ0oFcmXmk3TdL3H5A8WsOMCaOPw9Xlp07909Ng==",
-          "shasum": "594051fd59c9cd0869de36dd3407a9b4acb77e1c",
-          "registeredAt": "2026-09-25T16:39:33.340Z",
+          "integrity": "sha512-R4zyjwQkkgKO9me2KPsNs9rdEjJ7NRxmO36WRDHnrZ3FaLpX31uRh/wn/O3ummgbrdNomJMmd3BTZImhn/WQbg==",
+          "shasum": "e66924e96c284c8d21f57893deab02d82a60a2a3",
+          "registeredAt": "2026-09-25T17:15:19.472Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -270,6 +271,7 @@
               "./package.json": "./package.json"
             },
             "dependencies": {
+              "axios": "^1.20.0",
               "preloader": "^1.0.0",
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.5",
