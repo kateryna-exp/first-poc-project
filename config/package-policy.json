@@ -1,0 +1,13 @@
+{
+  "mode": "log-only",
+  "allow": {
+    "example-approved-package": [
+      "1.0.0"
+    ]
+  },
+  "deny": {
+    "example-blocked-package": [
+      "*"
+    ]
+  }
+}

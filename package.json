@@ -1,0 +1,23 @@
+{
+  "name": "company-npm-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Authenticated, auditable npm registry gateway for Vercel",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node server.mjs",
+    "test": "node --test",
+    "check": "node --check api/registry.mjs && node --check src/gateway.mjs && node --test",
+    "token": "node scripts/hash-token.mjs",
+    "register-package": "node scripts/register-custom-package.mjs",
+    "report-lockfile": "node scripts/report-lockfile.mjs",
+    "company-npm": "node scripts/company-npm.mjs"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "rollup": "^4.63.0"
+  }
+}

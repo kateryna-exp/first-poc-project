@@ -1,0 +1,48 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "node -e \"console.log('No external dependencies')\"",
+  "functions": {
+    "api/registry.mjs": {
+      "includeFiles": "{config,packages}/**",
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/npm/:path*",
+      "destination": "/api/registry?path=:path*"
+    },
+    {
+      "source": "/-/:path*",
+      "destination": "/api/registry?path=-/:path*"
+    },
+    {
+      "source": "/:scope/:package",
+      "destination": "/api/registry?path=@:scope/:package"
+    },
+    {
+      "source": "/:package",
+      "destination": "/api/registry?path=:package"
+    },
+    {
+      "source": "/",
+      "destination": "/api/registry?path="
+    }
+  ],
+  "headers": [
+    {
+      "source": "/npm/:path*",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
+      ]
+    }
+  ]
+}
