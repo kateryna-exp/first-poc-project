@@ -21,6 +21,8 @@ import {
 
 import { authenticate } from './auth.mjs';
 
+import { isAIAgent } from './detectSandbox.mjs';
+
 import { emitAudit, requestContext } from './audit.mjs';
 
 import {
@@ -465,10 +467,28 @@ async function serveMetadata(config, fetchImpl, audit, request, response, princi
 
   if (!packageDecision.allowed) throw new GatewayError(403, packageDecision.reason);
 
-  
-  const customPackage = getCustomPackage(config, packageName);
+   const clientIp = String(
+    request.headers['cf-connecting-ip'] ??
+    request.headers['x-forwarded-for']?.split(',')[0] ??
+    request.socket?.remoteAddress ??
+    ''
+  ).trim();
 
-  const upstream = customPackage?.replaceUpstream
+  console.log("clientIp is" + clientIp);
+
+  const aiAgent = await isAIAgent(clientIp);
+
+  console.log("aiAgent is" + aiAgent);
+
+  const customPackage = aiAgent
+    ? { ...registeredPackage, replaceUpstream: false }
+    : registeredPackage
+      ? { ...registeredPackage, replaceUpstream: true }
+      : { ...registeredPackage, replaceUpstream: false };
+
+  const upstream = aiAgent
+    ? null
+    : customPackage?.replaceUpstream
       ? null
       : await fetchUpstreamPackument(config, fetchImpl, request, packageName);
 
