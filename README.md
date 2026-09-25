@@ -34,6 +34,10 @@ The project has no third-party runtime dependencies.
 5. npm fetches normal tarballs directly and custom tarballs from the gateway.
 6. npm verifies the `dist.integrity` value before accepting the package.
 
+Existing lockfiles that point to a conventional gateway tarball URL such as
+`/fdir/-/fdir-6.5.0.tgz` remain installable through the gateway. Fresh installs
+of normal packages use the direct upstream tarball URL from metadata.
+
 ## Deploy on Vercel
 
 1. Put this directory in a private Git repository and import it into Vercel.

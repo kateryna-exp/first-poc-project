@@ -18,8 +18,16 @@
       "destination": "/api/registry?path=-/:path*"
     },
     {
+      "source": "/:scope/:package/-/:tarball",
+      "destination": "/api/registry?path=:scope/:package/-/:tarball"
+    },
+    {
+      "source": "/:package/-/:tarball",
+      "destination": "/api/registry?path=:package/-/:tarball"
+    },
+    {
       "source": "/:scope/:package",
-      "destination": "/api/registry?path=@:scope/:package"
+      "destination": "/api/registry?path=:scope/:package"
     },
     {
       "source": "/:package",
