@@ -4,4 +4,5 @@ replace-registry-host=never
 
 # Keep normal npm integrity checks enabled.
 audit=true
+fund=true
 package-lock=true

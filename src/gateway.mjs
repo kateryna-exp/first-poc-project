@@ -791,6 +791,12 @@ async function proxyAuditRequest(config, fetchImpl, audit, request, response, pr
 
   headers.accept = request.headers.accept ?? 'application/json';
 
+  // npm sends bulk audit JSON compressed with gzip. Keep the encoding header
+  // when forwarding the original request bytes to the upstream registry.
+  if (request.headers['content-encoding']) {
+    headers['content-encoding'] = request.headers['content-encoding'];
+  }
+
   const upstream = await fetchWithValidatedRedirects(
 
     config,

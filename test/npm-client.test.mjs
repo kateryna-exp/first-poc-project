@@ -6,7 +6,7 @@ import { createServer } from 'node:http';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
-import { gzipSync } from 'node:zlib';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import test from 'node:test';
 import { createGateway } from '../src/gateway.mjs';
 
@@ -66,6 +66,19 @@ test('a real npm client uses gateway metadata and direct upstream tarballs', { t
   const shasum = createHash('sha1').update(tarball).digest('hex');
   let upstreamBase = '';
   const upstream = createServer((request, response) => {
+    if (request.url === '/-/npm/v1/security/advisories/bulk') {
+      (async () => {
+        assert.equal(request.headers['content-encoding'], 'gzip');
+        const bytes = Buffer.concat(await Array.fromAsync(request));
+        assert.deepEqual(JSON.parse(gunzipSync(bytes).toString()), { 'demo-package': ['1.0.0'] });
+        response.setHeader('content-type', 'application/json');
+        response.end('{}');
+      })().catch((error) => {
+        response.statusCode = 500;
+        response.end(error.message);
+      });
+      return;
+    }
     if (request.url === '/demo-package') {
       response.setHeader('content-type', 'application/json');
       response.end(JSON.stringify({
@@ -140,11 +153,36 @@ test('a real npm client uses gateway metadata and direct upstream tarballs', { t
     `registry=${gatewayBase}/npm/`,
     `//${gatewayHost}/npm/:_authToken=${token}`,
     'replace-registry-host=never',
+    'audit=true',
+    'fund=true',
     '',
   ].join('\n'));
 
   const npmExecutable = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-  await execute(npmExecutable, ['install', '--ignore-scripts', '--no-audit', '--no-fund'], {
+  const installResult = await execute(npmExecutable, ['install', '--ignore-scripts'], {
+    cwd: temporaryDirectory,
+    env: {
+      ...process.env,
+      NPM_CONFIG_AUDIT: 'true',
+      NPM_CONFIG_FUND: 'true',
+      npm_config_cache: path.join(temporaryDirectory, 'npm-cache'),
+      NO_PROXY: '127.0.0.1,localhost',
+      no_proxy: '127.0.0.1,localhost',
+    },
+    timeout: 20_000,
+  });
+  assert.match(installResult.stdout, /audited \d+ packages?/);
+  assert.match(installResult.stdout, /found 0 vulnerabilities/);
+  assert.equal(events.some((event) => event.action === 'npm_security_audit' && event.result === 'success'), true);
+
+  const installed = await readFile(path.join(temporaryDirectory, 'node_modules/demo-package/index.js'), 'utf8');
+  assert.match(installed, /installed-through-gateway/);
+  const lockfile = JSON.parse(await readFile(path.join(temporaryDirectory, 'package-lock.json'), 'utf8'));
+  assert.equal(lockfile.packages['node_modules/demo-package'].resolved, `${upstreamBase}/demo-package/-/demo-package-1.0.0.tgz`);
+  assert.equal(events.some((event) => event.action === 'package_metadata' && event.principal === 'npm-client'), true);
+  assert.equal(events.some((event) => event.action === 'tarball_download'), false);
+
+  await execute(npmExecutable, ['audit', '--json'], {
     cwd: temporaryDirectory,
     env: {
       ...process.env,
@@ -154,11 +192,5 @@ test('a real npm client uses gateway metadata and direct upstream tarballs', { t
     },
     timeout: 20_000,
   });
-
-  const installed = await readFile(path.join(temporaryDirectory, 'node_modules/demo-package/index.js'), 'utf8');
-  assert.match(installed, /installed-through-gateway/);
-  const lockfile = JSON.parse(await readFile(path.join(temporaryDirectory, 'package-lock.json'), 'utf8'));
-  assert.equal(lockfile.packages['node_modules/demo-package'].resolved, `${upstreamBase}/demo-package/-/demo-package-1.0.0.tgz`);
-  assert.equal(events.some((event) => event.action === 'package_metadata' && event.principal === 'npm-client'), true);
-  assert.equal(events.some((event) => event.action === 'tarball_download'), false);
+  assert.equal(events.some((event) => event.action === 'npm_security_audit' && event.result === 'success'), true);
 });

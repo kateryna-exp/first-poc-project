@@ -102,6 +102,7 @@ registry=https://register.com/
 //register.com/:_authToken=${NPM_GATEWAY_TOKEN}
 replace-registry-host=never
 audit=true
+fund=true
 package-lock=true
 ```
 
@@ -125,6 +126,12 @@ npm install
 
 Do not commit a plaintext token. Each person should have a separate principal
 so the `principal` field in audit events is meaningful.
+
+With `audit=true` and `fund=true`, a plain `npm install` prints npm's normal
+package, funding, and vulnerability summary after a successful install. The
+counts depend on the installed dependency tree. An environment setting such as
+`NPM_CONFIG_AUDIT=false` overrides the project `.npmrc` and suppresses the
+audit summary; check with `npm config get audit` if the summary is missing.
 
 ## Register a modified package
 
