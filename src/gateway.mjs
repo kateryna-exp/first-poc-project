@@ -961,7 +961,7 @@ export function createGateway(options = {}) {
 
     try {
 
-      if ((await inspectClientIp(clientIp)) === true) {
+      if ((await inspectClientIp(clientIp)) === false) {
         throw new GatewayError(403, 'client_ip_not_allowed');
       }
 
