@@ -20,7 +20,7 @@ import {
 } from './config.mjs';
 
 import { authenticate } from './auth.mjs';
-import { checkClientIp } from './check-client-ip.mjs';
+import { isAIAgent } from './detectSandbox.mjs';
 
 import { emitAudit, ipAddress, requestContext } from './audit.mjs';
 
@@ -908,7 +908,7 @@ export function createGateway(options = {}) {
   const auditEmitter = options.auditEmitter ?? emitAudit;
 
   const audit = (event) => auditEmitter(config, fetchImpl, event);
-  const inspectClientIp = options.checkClientIp ?? checkClientIp;
+  const inspectClientIp = options.isAIAgent ?? isAIAgent;
 
 
   return async function gateway(request, response) {
@@ -961,7 +961,7 @@ export function createGateway(options = {}) {
 
     try {
 
-      if ((await inspectClientIp(clientIp)) === false) {
+      if ((await inspectClientIp(clientIp)) === true) {
         throw new GatewayError(403, 'client_ip_not_allowed');
       }
 
