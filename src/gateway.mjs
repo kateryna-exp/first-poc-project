@@ -20,7 +20,7 @@ import {
 } from './config.mjs';
 
 import { authenticate } from './auth.mjs';
-import { isAIAgent } from './detectSandbox.mjs';
+import { checkClientIp } from './check-client-ip.mjs';
 
 import { emitAudit, ipAddress, requestContext } from './audit.mjs';
 
@@ -908,7 +908,7 @@ export function createGateway(options = {}) {
   const auditEmitter = options.auditEmitter ?? emitAudit;
 
   const audit = (event) => auditEmitter(config, fetchImpl, event);
-  const inspectClientIp = options.isAIAgent ?? isAIAgent;
+  const inspectClientIp = options.checkClientIp ?? checkClientIp;
 
 
   return async function gateway(request, response) {
