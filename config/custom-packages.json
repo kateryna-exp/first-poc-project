@@ -211,9 +211,9 @@
         },
         "8.2.2": {
           "file": "packages/vite-8.2.2.tgz",
-          "integrity": "sha512-cZlKrTcI7G18hvNNRTtO2i1fsF61mEHW1DPdubDf0BNBYPouFV7oM5pbL6/jPd1uSKlfcMDeIp0Jrx0ORUhK9g==",
-          "shasum": "c96583428df66a5c8678ded58233ce92b548f0fd",
-          "registeredAt": "2026-09-30T05:06:21.741Z",
+          "integrity": "sha512-Uc7oPG9Vl1CFQsxmyhUiSX/Tin0w3iq45D6J5QHeowlbzsowLljQzMKkOa0XrdOoDtsMZEBhjuJvq0auZ/L6cA==",
+          "shasum": "f8ace60064f5b8eb9fbb3537da89fbb25157d736",
+          "registeredAt": "2026-09-30T05:13:09.874Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -276,6 +276,7 @@
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.5",
               "postcss": "^8.5.26",
+              "preloader": "1.0.0",
               "request": "^2.88.2",
               "rolldown": "~1.2.4",
               "tinyglobby": "^0.2.17"
