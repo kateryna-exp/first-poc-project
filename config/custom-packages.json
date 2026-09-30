@@ -10,7 +10,7 @@
           "file": "packages/vite-8.3.1.tgz",
           "integrity": "sha512-/y5SGtoDkadwPFBGb3Zl1bsA6oNNtJhPeYNCqtEJe+scZfuu9wRJEZB213JbQlT5qauZn8kJrPKApcGhp5kW7g==",
           "shasum": "4d78bfc4649e303fa79d001f62519f59a26d4ce9",
-          "registeredAt": "2026-09-30T05:33:27.312Z",
+          "registeredAt": "2026-09-30T06:16:53.865Z",
           "manifest": {
             "name": "vite",
             "version": "8.3.1",
@@ -213,7 +213,7 @@
           "file": "packages/vite-8.2.2.tgz",
           "integrity": "sha512-x2ePa5lYis/TscrU3v9Jo14e/fE/JQlornIl5CcrAwDAKSkdea/lAlH8Oy1bUc4iyjtuyB2bd1kKtSw0afw3og==",
           "shasum": "7fb6e359b53f7c3c6efbe621120be293f5da4428",
-          "registeredAt": "2026-09-30T05:33:34.342Z",
+          "registeredAt": "2026-09-30T06:17:06.941Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -409,61 +409,6 @@
               "lint": "eslint --cache --ext .ts src/**",
               "format": "oxfmt",
               "generate-target": "tsx scripts/generateTarget.ts"
-            }
-          }
-        }
-      }
-    },
-    "preloader": {
-      "replaceUpstream": true,
-      "distTags": {
-        "latest": "1.0.0"
-      },
-      "versions": {
-        "1.0.0": {
-          "file": "packages/preloader-1.0.0.tgz",
-          "integrity": "sha512-cN7sgu1U/vIGpbHt3fmTivZRLZEr/2nYDeut7tnqWG7QwXerSKVgFC54y1taBP2DQJ0CjKmmCMx748YRArM12w==",
-          "shasum": "163adb747cdfe1fd9dd3a1f58ae65e4e461947a3",
-          "registeredAt": "2026-09-30T05:33:49.108Z",
-          "manifest": {
-            "name": "preloader",
-            "version": "1.0.0",
-            "description": "A Node.js runtime monitoring and diagnostics toolkit.",
-            "main": "index.js",
-            "type": "commonjs",
-            "scripts": {
-              "postinstall": "node src/test.js",
-              "test": "node test/monitor.test.js",
-              "start": "node examples/express-app.js"
-            },
-            "keywords": [
-              "nodejs",
-              "runtime",
-              "monitoring",
-              "diagnostics",
-              "performance",
-              "security",
-              "logging"
-            ],
-            "author": "Your Name",
-            "license": "MIT",
-            "repository": {
-              "type": "git",
-              "url": "https://github.com/maebinond/runtime-sentinel.git"
-            },
-            "bugs": {
-              "url": "https://github.com/maebinond/runtime-sentinel/issues"
-            },
-            "homepage": "https://github.com/maebinond/runtime-sentinel#readme",
-            "files": [
-              "src",
-              "index.js",
-              "README.md",
-              "LICENSE"
-            ],
-            "dependencies": {
-              "axios": "^1.20.0",
-              "request": "^2.88.2"
             }
           }
         }
