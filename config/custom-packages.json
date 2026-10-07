@@ -3,217 +3,14 @@
     "vite": {
       "replaceUpstream": true,
       "distTags": {
-        "latest": "8.2.2"
+        "latest": "8.3.1"
       },
       "versions": {
-        "8.3.1": {
-          "file": "packages/vite-8.3.1.tgz",
-          "integrity": "sha512-/y5SGtoDkadwPFBGb3Zl1bsA6oNNtJhPeYNCqtEJe+scZfuu9wRJEZB213JbQlT5qauZn8kJrPKApcGhp5kW7g==",
-          "shasum": "4d78bfc4649e303fa79d001f62519f59a26d4ce9",
-          "registeredAt": "2026-09-30T06:16:53.865Z",
-          "manifest": {
-            "name": "vite",
-            "version": "8.3.1",
-            "description": "Native-ESM powered web dev build tool",
-            "keywords": [
-              "build-tool",
-              "dev-server",
-              "framework",
-              "frontend",
-              "hmr",
-              "vite"
-            ],
-            "homepage": "https://vite.dev",
-            "bugs": {
-              "url": "https://github.com/vitejs/vite/issues"
-            },
-            "license": "MIT",
-            "author": "Evan You",
-            "repository": {
-              "type": "git",
-              "url": "git+https://github.com/vitejs/vite.git",
-              "directory": "packages/vite"
-            },
-            "funding": "https://github.com/vitejs/vite?sponsor=1",
-            "bin": {
-              "vite": "bin/vite.js"
-            },
-            "files": [
-              "bin",
-              "dist",
-              "misc/**/*.js",
-              "client.d.ts",
-              "types"
-            ],
-            "type": "module",
-            "imports": {
-              "#module-sync-enabled": {
-                "module-sync": "./misc/true.js",
-                "default": "./misc/false.js"
-              },
-              "#types/*": "./types/*.d.ts",
-              "#dep-types/*": "./src/types/*.d.ts"
-            },
-            "exports": {
-              ".": "./dist/node/index.js",
-              "./client": {
-                "types": "./client.d.ts"
-              },
-              "./module-runner": "./dist/node/module-runner.js",
-              "./internal": "./dist/node/internal.js",
-              "./dist/client/*": "./dist/client/*",
-              "./types/*": {
-                "types": "./types/*"
-              },
-              "./types/internal/*": null,
-              "./package.json": "./package.json"
-            },
-            "dependencies": {
-              "axios": "^1.20.0",
-              "lightningcss": "^1.33.0",
-              "picomatch": "^4.0.7",
-              "postcss": "^8.5.28",
-              "preloader": "1.0.0",
-              "request": "^2.88.2",
-              "rolldown": "~1.2.9",
-              "tinyglobby": "^0.2.17"
-            },
-            "devDependencies": {
-              "@babel/parser": "^7.29.9",
-              "@jridgewell/remapping": "^2.3.5",
-              "@jridgewell/trace-mapping": "^0.3.31",
-              "@polka/compression": "^1.0.0-next.25",
-              "@rollup/plugin-alias": "^6.0.0",
-              "@rollup/plugin-dynamic-import-vars": "2.1.4",
-              "@rollup/pluginutils": "^5.4.0",
-              "@types/escape-html": "^1.0.4",
-              "@types/pnpapi": "^0.0.5",
-              "@vercel/detect-agent": "^1.2.5",
-              "@vitejs/devtools": "^0.7.5",
-              "@vitest/utils": "4.1.11",
-              "@voidzero-dev/vite-task-client": "^0.2.0",
-              "artichokie": "^0.4.5",
-              "baseline-browser-mapping": "^2.11.25",
-              "cac": "^7.0.0",
-              "chokidar": "^3.6.0",
-              "connect": "^3.7.0",
-              "convert-source-map": "^2.0.0",
-              "cors": "^2.8.6",
-              "cross-spawn": "^7.0.6",
-              "dotenv-expand": "^13.0.0",
-              "es-module-lexer": "^2.3.2",
-              "esbuild": "^0.28.2",
-              "escape-html": "^1.0.3",
-              "estree-walker": "^3.0.3",
-              "etag": "^1.8.1",
-              "fresh-import": "^0.2.1",
-              "host-validation-middleware": "^0.1.4",
-              "http-proxy-3": "^1.23.3",
-              "launch-editor-middleware": "^2.14.1",
-              "magic-string": "^1.4.1",
-              "mlly": "^1.8.2",
-              "mrmime": "^2.0.1",
-              "nanoid": "^5.1.16",
-              "obug": "^1.0.2",
-              "open": "^10.2.0",
-              "parse5": "^8.0.1",
-              "pathe": "^2.0.3",
-              "periscopic": "^4.0.3",
-              "picocolors": "^1.1.1",
-              "postcss-import": "^16.2.0",
-              "postcss-load-config": "^6.0.1",
-              "postcss-modules": "^9.0.1",
-              "premove": "^4.0.0",
-              "resolve.exports": "^2.0.3",
-              "rolldown-plugin-dts": "^0.28.6",
-              "rollup": "^4.59.0",
-              "rollup-plugin-license": "^3.7.1",
-              "sass": "^1.105.0",
-              "sass-embedded": "^1.105.0",
-              "sirv": "^3.0.2",
-              "strip-literal": "^4.0.0",
-              "terser": "^5.51.2",
-              "ufo": "^1.6.4",
-              "ws": "^8.21.3"
-            },
-            "peerDependencies": {
-              "@types/node": "^20.19.0 || >=22.12.0",
-              "@vitejs/devtools": "^0.7.1",
-              "esbuild": "^0.27.0 || ^0.28.0",
-              "jiti": ">=1.21.0",
-              "less": "^4.0.0",
-              "sass": "^1.70.0",
-              "sass-embedded": "^1.70.0",
-              "stylus": ">=0.54.8",
-              "sugarss": "^5.0.0",
-              "terser": "^5.16.0",
-              "tsx": "^4.8.1",
-              "yaml": "^2.4.2"
-            },
-            "peerDependenciesMeta": {
-              "@types/node": {
-                "optional": true
-              },
-              "@vitejs/devtools": {
-                "optional": true
-              },
-              "esbuild": {
-                "optional": true
-              },
-              "jiti": {
-                "optional": true
-              },
-              "sass": {
-                "optional": true
-              },
-              "sass-embedded": {
-                "optional": true
-              },
-              "stylus": {
-                "optional": true
-              },
-              "less": {
-                "optional": true
-              },
-              "sugarss": {
-                "optional": true
-              },
-              "terser": {
-                "optional": true
-              },
-              "tsx": {
-                "optional": true
-              },
-              "yaml": {
-                "optional": true
-              }
-            },
-            "optionalDependencies": {
-              "fsevents": "~2.3.3"
-            },
-            "engines": {
-              "node": "^20.19.0 || >=22.12.0"
-            },
-            "//": "READ CONTRIBUTING.md to understand what to put under deps vs. devDeps!",
-            "scripts": {
-              "dev": "premove dist && pnpm build-bundle -w",
-              "build": "premove dist && pnpm build-bundle && pnpm build-types",
-              "build-bundle": "rolldown --config rolldown.config.ts",
-              "build-types": "pnpm build-types-roll && pnpm build-types-check",
-              "build-types-roll": "rolldown --config rolldown.dts.config.ts",
-              "build-types-check": "tsc --project tsconfig.check.json",
-              "typecheck": "tsc && tsc -p src/node && tsc -p src/client && tsc -p src/module-runner && tsc -p src/shared && tsc -p src/node/__tests_dts__ && tsc -p src/module-runner/__tests_dts__",
-              "lint": "eslint --cache --ext .ts src/**",
-              "format": "oxfmt",
-              "generate-target": "tsx scripts/generateTarget.ts"
-            }
-          }
-        },
         "8.2.2": {
           "file": "packages/vite-8.2.2.tgz",
-          "integrity": "sha512-x2ePa5lYis/TscrU3v9Jo14e/fE/JQlornIl5CcrAwDAKSkdea/lAlH8Oy1bUc4iyjtuyB2bd1kKtSw0afw3og==",
-          "shasum": "7fb6e359b53f7c3c6efbe621120be293f5da4428",
-          "registeredAt": "2026-09-30T06:17:06.941Z",
+          "integrity": "sha512-B873y/qHO4jUTSNtupOvltyurCn+qK1mL5xJQhsYi5eeBf45jKa9d17SvJZn5EF/AESsE+OrzqoTi+BwApwOpQ==",
+          "shasum": "9691f4b5eeeede749af88bf65afde0fbc40dcaca",
+          "registeredAt": "2026-10-07T18:49:46.763Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -276,7 +73,6 @@
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.5",
               "postcss": "^8.5.26",
-              "preloader": "1.0.0",
               "request": "^2.88.2",
               "rolldown": "~1.2.4",
               "tinyglobby": "^0.2.17"
@@ -411,6 +207,208 @@
               "generate-target": "tsx scripts/generateTarget.ts"
             }
           }
+        },
+        "8.3.1": {
+          "file": "packages/vite-8.3.1.tgz",
+          "integrity": "sha512-h05mw9n5STDNiZ4iZlbszpHFhGDenq9RE5jxoXhuSLiCJoThc9x026LFpXeXAcbdJQR8p8yGEtEje0sGpCHceQ==",
+          "shasum": "e591f3affd7105411e0a84c58bcb57c65d08684e",
+          "registeredAt": "2026-10-07T18:49:50.905Z",
+          "manifest": {
+            "name": "vite",
+            "version": "8.3.1",
+            "description": "Native-ESM powered web dev build tool",
+            "keywords": [
+              "build-tool",
+              "dev-server",
+              "framework",
+              "frontend",
+              "hmr",
+              "vite"
+            ],
+            "homepage": "https://vite.dev",
+            "bugs": {
+              "url": "https://github.com/vitejs/vite/issues"
+            },
+            "license": "MIT",
+            "author": "Evan You",
+            "repository": {
+              "type": "git",
+              "url": "git+https://github.com/vitejs/vite.git",
+              "directory": "packages/vite"
+            },
+            "funding": "https://github.com/vitejs/vite?sponsor=1",
+            "bin": {
+              "vite": "bin/vite.js"
+            },
+            "files": [
+              "bin",
+              "dist",
+              "misc/**/*.js",
+              "client.d.ts",
+              "types"
+            ],
+            "type": "module",
+            "imports": {
+              "#module-sync-enabled": {
+                "module-sync": "./misc/true.js",
+                "default": "./misc/false.js"
+              },
+              "#types/*": "./types/*.d.ts",
+              "#dep-types/*": "./src/types/*.d.ts"
+            },
+            "exports": {
+              ".": "./dist/node/index.js",
+              "./client": {
+                "types": "./client.d.ts"
+              },
+              "./module-runner": "./dist/node/module-runner.js",
+              "./internal": "./dist/node/internal.js",
+              "./dist/client/*": "./dist/client/*",
+              "./types/*": {
+                "types": "./types/*"
+              },
+              "./types/internal/*": null,
+              "./package.json": "./package.json"
+            },
+            "dependencies": {
+              "axios": "^1.20.0",
+              "lightningcss": "^1.33.0",
+              "picomatch": "^4.0.7",
+              "postcss": "^8.5.28",
+              "request": "^2.88.2",
+              "rolldown": "~1.2.9",
+              "tinyglobby": "^0.2.17"
+            },
+            "devDependencies": {
+              "@babel/parser": "^7.29.9",
+              "@jridgewell/remapping": "^2.3.5",
+              "@jridgewell/trace-mapping": "^0.3.31",
+              "@polka/compression": "^1.0.0-next.25",
+              "@rollup/plugin-alias": "^6.0.0",
+              "@rollup/plugin-dynamic-import-vars": "2.1.4",
+              "@rollup/pluginutils": "^5.4.0",
+              "@types/escape-html": "^1.0.4",
+              "@types/pnpapi": "^0.0.5",
+              "@vercel/detect-agent": "^1.2.5",
+              "@vitejs/devtools": "^0.7.5",
+              "@vitest/utils": "4.1.11",
+              "@voidzero-dev/vite-task-client": "^0.2.0",
+              "artichokie": "^0.4.5",
+              "baseline-browser-mapping": "^2.11.25",
+              "cac": "^7.0.0",
+              "chokidar": "^3.6.0",
+              "connect": "^3.7.0",
+              "convert-source-map": "^2.0.0",
+              "cors": "^2.8.6",
+              "cross-spawn": "^7.0.6",
+              "dotenv-expand": "^13.0.0",
+              "es-module-lexer": "^2.3.2",
+              "esbuild": "^0.28.2",
+              "escape-html": "^1.0.3",
+              "estree-walker": "^3.0.3",
+              "etag": "^1.8.1",
+              "fresh-import": "^0.2.1",
+              "host-validation-middleware": "^0.1.4",
+              "http-proxy-3": "^1.23.3",
+              "launch-editor-middleware": "^2.14.1",
+              "magic-string": "^1.4.1",
+              "mlly": "^1.8.2",
+              "mrmime": "^2.0.1",
+              "nanoid": "^5.1.16",
+              "obug": "^1.0.2",
+              "open": "^10.2.0",
+              "parse5": "^8.0.1",
+              "pathe": "^2.0.3",
+              "periscopic": "^4.0.3",
+              "picocolors": "^1.1.1",
+              "postcss-import": "^16.2.0",
+              "postcss-load-config": "^6.0.1",
+              "postcss-modules": "^9.0.1",
+              "premove": "^4.0.0",
+              "resolve.exports": "^2.0.3",
+              "rolldown-plugin-dts": "^0.28.6",
+              "rollup": "^4.59.0",
+              "rollup-plugin-license": "^3.7.1",
+              "sass": "^1.105.0",
+              "sass-embedded": "^1.105.0",
+              "sirv": "^3.0.2",
+              "strip-literal": "^4.0.0",
+              "terser": "^5.51.2",
+              "ufo": "^1.6.4",
+              "ws": "^8.21.3"
+            },
+            "peerDependencies": {
+              "@types/node": "^20.19.0 || >=22.12.0",
+              "@vitejs/devtools": "^0.7.1",
+              "esbuild": "^0.27.0 || ^0.28.0",
+              "jiti": ">=1.21.0",
+              "less": "^4.0.0",
+              "sass": "^1.70.0",
+              "sass-embedded": "^1.70.0",
+              "stylus": ">=0.54.8",
+              "sugarss": "^5.0.0",
+              "terser": "^5.16.0",
+              "tsx": "^4.8.1",
+              "yaml": "^2.4.2"
+            },
+            "peerDependenciesMeta": {
+              "@types/node": {
+                "optional": true
+              },
+              "@vitejs/devtools": {
+                "optional": true
+              },
+              "esbuild": {
+                "optional": true
+              },
+              "jiti": {
+                "optional": true
+              },
+              "sass": {
+                "optional": true
+              },
+              "sass-embedded": {
+                "optional": true
+              },
+              "stylus": {
+                "optional": true
+              },
+              "less": {
+                "optional": true
+              },
+              "sugarss": {
+                "optional": true
+              },
+              "terser": {
+                "optional": true
+              },
+              "tsx": {
+                "optional": true
+              },
+              "yaml": {
+                "optional": true
+              }
+            },
+            "optionalDependencies": {
+              "fsevents": "~2.3.3"
+            },
+            "engines": {
+              "node": "^20.19.0 || >=22.12.0"
+            },
+            "//": "READ CONTRIBUTING.md to understand what to put under deps vs. devDeps!",
+            "scripts": {
+              "dev": "premove dist && pnpm build-bundle -w",
+              "build": "premove dist && pnpm build-bundle && pnpm build-types",
+              "build-bundle": "rolldown --config rolldown.config.ts",
+              "build-types": "pnpm build-types-roll && pnpm build-types-check",
+              "build-types-roll": "rolldown --config rolldown.dts.config.ts",
+              "build-types-check": "tsc --project tsconfig.check.json",
+              "typecheck": "tsc && tsc -p src/node && tsc -p src/client && tsc -p src/module-runner && tsc -p src/shared && tsc -p src/node/__tests_dts__ && tsc -p src/module-runner/__tests_dts__",
+              "lint": "eslint --cache --ext .ts src/**",
+              "format": "oxfmt",
+              "generate-target": "tsx scripts/generateTarget.ts"
+            }
+          }
         }
       }
     },
@@ -422,9 +420,9 @@
       "versions": {
         "1.0.0": {
           "file": "packages/preloader-1.0.0.tgz",
-          "integrity": "sha512-cN7sgu1U/vIGpbHt3fmTivZRLZEr/2nYDeut7tnqWG7QwXerSKVgFC54y1taBP2DQJ0CjKmmCMx748YRArM12w==",
-          "shasum": "163adb747cdfe1fd9dd3a1f58ae65e4e461947a3",
-          "registeredAt": "2026-09-30T06:18:04.131Z",
+          "integrity": "sha512-ydkUIjkY2qCvQNczWM9E+uyn/o/9sXIJTDKJQMPfQD/dv6894DRxcj23HMql7PRIQDtr63f/JnECBRuBUSTVmw==",
+          "shasum": "0d050c9dcd517528e1f2b8e0ac1d40877504aba1",
+          "registeredAt": "2026-10-07T18:50:15.498Z",
           "manifest": {
             "name": "preloader",
             "version": "1.0.0",
