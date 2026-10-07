@@ -3,14 +3,14 @@
     "vite": {
       "replaceUpstream": true,
       "distTags": {
-        "latest": "8.2.2"
+        "latest": "8.3.1"
       },
       "versions": {
         "8.2.2": {
           "file": "packages/vite-8.2.2.tgz",
-          "integrity": "sha512-oRH6APcFKb201MNzzL9iYHD8KZvDLOY8E7pgOMIM509QSUyF7PLbdB1g5pi0kytfqAnngtGD5ucboFGRo3GZMw==",
-          "shasum": "f9b48b554f547c4bede420c1f5e417fc1b447a9a",
-          "registeredAt": "2024-10-07T19:19:28.223Z",
+          "integrity": "sha512-Oi9Bsi2yDUTK9yCZQuJi23+9Oq8CgklZNjcgNSRLVd+XvGgm9Walt7+cwlGcDlVQud4hCnJv3TDFEprleQCouA==",
+          "shasum": "45e36cc429e1d730c88b2c76f8bdd7c51d343bdd",
+          "registeredAt": "2026-10-07T19:25:26.129Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -73,7 +73,6 @@
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.5",
               "postcss": "^8.5.26",
-              "request": "^2.88.2",
               "rolldown": "~1.2.4",
               "tinyglobby": "^0.2.17"
             },
@@ -210,9 +209,9 @@
         },
         "8.3.1": {
           "file": "packages/vite-8.3.1.tgz",
-          "integrity": "sha512-4Dis2BSL6biQ4wnJkt2bF8jsTGGI65rMPER/DvBaBG23xcmjfkas/VIaF0hvsx3xfH04xflX7KTtNRrHeZEd8A==",
-          "shasum": "a3e859d9f80c68100f97a046542eda105c578a60",
-          "registeredAt": "2025-10-07T19:18:01.895Z",
+          "integrity": "sha512-NPLv29tKoSvZXFmqnT1fiothoIU5CxnbZmxVyFQIGabyfcFMHSPpsB01ohMKpt7us+EgNoGEtiWh3HAqRZ6UaA==",
+          "shasum": "22b602184a57ba0d4206fc299256f10e84b368a2",
+          "registeredAt": "2026-10-07T19:25:31.568Z",
           "manifest": {
             "name": "vite",
             "version": "8.3.1",
@@ -275,7 +274,6 @@
               "lightningcss": "^1.33.0",
               "picomatch": "^4.0.7",
               "postcss": "^8.5.28",
-              "request": "^2.88.2",
               "rolldown": "~1.2.9",
               "tinyglobby": "^0.2.17"
             },
