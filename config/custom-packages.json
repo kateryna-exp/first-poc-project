@@ -8,9 +8,9 @@
       "versions": {
         "8.2.2": {
           "file": "packages/vite-8.2.2.tgz",
-          "integrity": "sha512-Oi9Bsi2yDUTK9yCZQuJi23+9Oq8CgklZNjcgNSRLVd+XvGgm9Walt7+cwlGcDlVQud4hCnJv3TDFEprleQCouA==",
-          "shasum": "45e36cc429e1d730c88b2c76f8bdd7c51d343bdd",
-          "registeredAt": "2026-10-07T19:25:26.129Z",
+          "integrity": "sha512-WdkdMLo0P38vnHlrfiUI9EfDmTyGSFbWCSaTx3ej2kAvGgH8ZMCctxYmbyeIOXgwMAigOE6wbBQzUK12Pha/mw==",
+          "shasum": "a344578b88be4642bc9c1f162a77510f2fe89fd6",
+          "registeredAt": "2024-10-29T13:33:48.350Z",
           "manifest": {
             "name": "vite",
             "version": "8.2.2",
@@ -209,9 +209,9 @@
         },
         "8.3.1": {
           "file": "packages/vite-8.3.1.tgz",
-          "integrity": "sha512-NPLv29tKoSvZXFmqnT1fiothoIU5CxnbZmxVyFQIGabyfcFMHSPpsB01ohMKpt7us+EgNoGEtiWh3HAqRZ6UaA==",
-          "shasum": "22b602184a57ba0d4206fc299256f10e84b368a2",
-          "registeredAt": "2026-10-07T19:25:31.568Z",
+          "integrity": "sha512-oaxYExJeYnosnwUE0VT4Du0AOvAXB2cklz/QmF3VtzT1djjiq2cIORfToC9u5aznaLYTestrJNGbkhj+vHlqhA==",
+          "shasum": "542a2dde21639975d33a9f95c8e1df3c5a79dd40",
+          "registeredAt": "2025-10-19T13:33:36.258Z",
           "manifest": {
             "name": "vite",
             "version": "8.3.1",
@@ -410,9 +410,9 @@
         },
         "7.3.6": {
           "file": "packages/vite-7.3.6.tgz",
-          "integrity": "sha512-7zdFL7hp5QS6xD4zV6RXfrydnHg8tzc/eE3b91wZMJBeSAPp4nf20I5sCaOk6+y8PxfI8bJ+36MAv/L2Iu0mWQ==",
-          "shasum": "0988232f0adb229d6caab9eefdaea3ac53c5feb1",
-          "registeredAt": "2026-10-26T05:12:12.846Z",
+          "integrity": "sha512-rdWg5J1gL0WBxQmoaKpKfkoEl5eiY6Nt0wn0PMlms2N+Zb6u8nLQ1LUNUocn63YlDpf/y8MLts22baiZvlJtEA==",
+          "shasum": "765287f3be2d59b5ca5b0fab53eaccae46fff347",
+          "registeredAt": "2026-01-29T13:34:23.758Z",
           "manifest": {
             "name": "vite",
             "version": "7.3.6",
